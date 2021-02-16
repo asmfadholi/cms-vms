@@ -13,7 +13,7 @@
             </nuxt-link>
           </a-menu-item>
 
-          <a-menu-item key="areaDetail" v-if="$isAdminArea()">
+          <a-menu-item v-if="$isAdminArea()" key="areaDetail">
             <nuxt-link :to="`/dashboard/area/${$cookies.get('area_slug')}`">
               <div>
                 <a-icon type="profile" />
@@ -21,7 +21,7 @@
               </div>
             </nuxt-link>
           </a-menu-item>
-          <a-menu-item key="wahana" v-if="$isAdminArea() || $isSuperAdmin()">
+          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="wahana">
             <nuxt-link to="/dashboard/wahana">
               <div>
                 <a-icon type="dollar" />
@@ -51,7 +51,7 @@
             </a-menu-item>
 
             <a-menu-item key="areaDetail">
-              <nuxt-link to="/dashboard/area">
+              <nuxt-link :to="`/dashboard/area/${$cookies.get('area_slug')}`">
                 <div>
                   <a-icon type="profile" />
                   <span>About Area</span>

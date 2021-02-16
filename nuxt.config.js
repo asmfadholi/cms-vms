@@ -80,8 +80,8 @@ export default {
     // Simple proxy
     '/api': {
       target: process.env.API_URL,
-      pathRewrite: { '^/api': '' },
-    },
+      pathRewrite: { '^/api': '' }
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
