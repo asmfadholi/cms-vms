@@ -55,7 +55,7 @@ export default {
   ],
 
   strapi: {
-    entities: ['areas', 'wahanas', 'models'],
+    entities: ['areas', 'wahanas', 'users'],
     expires: '31d'
   },
 

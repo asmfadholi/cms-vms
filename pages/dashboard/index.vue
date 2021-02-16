@@ -22,6 +22,17 @@
     </div>
     <a-divider v-if="$isAdminArea()" />
     <div>
+      <h3 v-if="$isAdminArea()">
+        <a-space size="small">
+          <a-icon type="profile" style="font-size: 15px;" />
+          <nuxt-link to="/dashboard/area/users">
+            <span>Manage Staff</span>
+          </nuxt-link>
+        </a-space>
+      </h3>
+    </div>
+    <a-divider v-if="$isAdminArea()" />
+    <div>
       <h3 v-if="$isAdminArea() || $isSuperAdmin()">
         <a-space size="small">
           <a-icon type="dollar" style="font-size: 15px;" />

@@ -3,7 +3,7 @@
     <div v-show="!loading" class="dashboard-sider">
       <a-layout-sider v-if="!isMobile" v-model="collapsed" theme="light" collapsible :style="{ position: isClient ? 'relative' : 'fixed', top: '0px', left: '0px', minHeight: '100vh'}">
         <img src="~assets/images/outing-logo.png" class="logo" alt="vms">
-        <a-menu theme="light" :default-selected-keys="currentNavigation" mode="inline">
+        <a-menu theme="light" :selected-keys="currentNavigation" mode="inline">
           <a-menu-item key="home">
             <nuxt-link to="/dashboard">
               <div>
@@ -18,6 +18,14 @@
               <div>
                 <a-icon type="profile" />
                 <span>About Area</span>
+              </div>
+            </nuxt-link>
+          </a-menu-item>
+          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="manageStaffArea">
+            <nuxt-link to="/dashboard/area/users">
+              <div>
+                <a-icon type="profile" />
+                <span>Manage Staff</span>
               </div>
             </nuxt-link>
           </a-menu-item>
@@ -40,7 +48,7 @@
           @close="visibleDrawer = false"
         >
           <div class="logo" />
-          <a-menu theme="light" :default-selected-keys="currentNavigation" mode="inline">
+          <a-menu theme="light" :selected-keys="currentNavigation" mode="inline">
             <a-menu-item key="home">
               <nuxt-link to="/dashboard">
                 <div>
@@ -50,7 +58,7 @@
               </nuxt-link>
             </a-menu-item>
 
-            <a-menu-item key="areaDetail">
+            <a-menu-item v-if="$isAdminArea()" key="areaDetail">
               <nuxt-link :to="`/dashboard/area/${$cookies.get('area_slug')}`">
                 <div>
                   <a-icon type="profile" />
@@ -58,7 +66,15 @@
                 </div>
               </nuxt-link>
             </a-menu-item>
-            <a-menu-item key="wahana">
+            <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="manageStaffArea">
+              <nuxt-link to="/dashboard/area/users">
+                <div>
+                  <a-icon type="profile" />
+                  <span>Manage Staff</span>
+                </div>
+              </nuxt-link>
+            </a-menu-item>
+            <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="wahana">
               <nuxt-link to="/dashboard/wahana">
                 <div>
                   <a-icon type="dollar" />
@@ -124,8 +140,9 @@ export default Vue.extend({
       return process.server ? false : this.$isMobile()
     },
     currentNavigation () {
-      const { path = '' } = this.$route
-      if (path.includes('area')) { return ['areaDetail'] }
+      const { path = '', params = {} } = this.$route
+      if (path.includes('area') && params.slug) { return ['areaDetail'] }
+      if (path.includes('area/users')) { return ['manageStaffArea'] }
       if (path.includes('wahana')) { return ['wahana'] }
       return ['home']
     }
