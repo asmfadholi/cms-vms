@@ -20,7 +20,7 @@
       </h1>
 
       <a-divider />
-      <LazyFormArea :dataEdit="area" />
+      <LazyFormArea :data-edit="area" />
     </div>
   </div>
 </template>
@@ -28,20 +28,14 @@
 <script>
 import Vue from 'vue'
 
-
 export default Vue.extend({
   layout: 'dashboard',
   middleware: 'auth',
   scrollToTop: true,
   transition: 'slide-bottom',
-  data() {
-    return {
-      area: null
-    }
-  },
-  async asyncData ({ $strapi, $getWithAuth, redirect, $cookies }) {
+  async asyncData ({ $strapi, redirect, $cookies, route }) {
     try {
-      const getArea = await $strapi.$areas.find($getWithAuth())
+      const getArea = await $strapi.$areas.find({ slug: route.params.slug })
       return { area: getArea[0] }
     } catch (err) {
       const { response = {} } = err || {}
@@ -53,6 +47,11 @@ export default Vue.extend({
       }
     }
   },
+  data () {
+    return {
+      area: null
+    }
+  }
 })
 </script>
 

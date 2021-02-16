@@ -1,14 +1,14 @@
 export default (context, inject) => {
-  const getWithAuth = (req = {}) => {
+  const getWahanaWithAuth = (req = {}) => {
     const currentRole = context.$cookies.get('role_id')
     if (currentRole === 'admin_area') {
       const areaId = context.$cookies.get('area_id') || 0
-      return { id: areaId, ...req, _sort: 'id:DESC' }
+      return { 'area.id': areaId, ...req, _sort: 'id:DESC' }
     }
     return { ...req, _sort: 'id:DESC' }
   }
 
-  const postWithAuth = (req = {}) => {
+  const postWahanaWithAuth = (req = {}) => {
     const currentRole = context.$cookies.get('role_id')
     if (currentRole === 'admin_area') {
       const areaId = context.$cookies.get('area_id') || 0
@@ -32,14 +32,14 @@ export default (context, inject) => {
     return roleId === 'authenticated'
   }
 
-  inject('getWithAuth', getWithAuth)
-  inject('postWithAuth', postWithAuth)
+  inject('getWahanaWithAuth', getWahanaWithAuth)
+  inject('postWahanaWithAuth', postWahanaWithAuth)
   inject('isAdminArea', isAdminArea)
   inject('isAdminWahana', isAdminWahana)
   inject('isSuperAdmin', isSuperAdmin)
 
-  context.$getWithAuth = getWithAuth
-  context.$postWithAuth = postWithAuth
+  context.$getWahanaWithAuth = getWahanaWithAuth
+  context.$postWahanaWithAuth = postWahanaWithAuth
   context.$isAdminArea = isAdminArea
   context.$isAdminWahana = isAdminWahana
   context.$isSuperAdmin = isSuperAdmin

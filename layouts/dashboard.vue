@@ -140,12 +140,12 @@ export default Vue.extend({
       })
     }
   },
-  created () {
-    if (process.server) { return }
+  // created () {
+  //   if (process.server) { return }
 
-    const shopId = this.$strapi.$cookies.get('shop_id')
-    this.$store.commit('indexdb/setShopId', shopId)
-  },
+  //   const shopId = this.$strapi.$cookies.get('shop_id')
+  //   this.$store.commit('indexdb/setShopId', shopId)
+  // },
   mounted () {
     this.loading = true
     if (!this.$cookies.get('user_id') && this.$route.path !== '/') {
