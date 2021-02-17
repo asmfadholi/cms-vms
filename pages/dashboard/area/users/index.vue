@@ -17,7 +17,7 @@
         <a-input
           v-model="search"
           v-debounce="doSearch"
-          placeholder="Cari Staff Area"
+          placeholder="Cari Staff"
         />
       </a-col>
       <a-col :span="12">
