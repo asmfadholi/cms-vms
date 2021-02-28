@@ -12,7 +12,7 @@ export default (context, inject) => {
     const currentRole = context.$cookies.get('role_id')
     if (currentRole === 'admin_area') {
       const areaId = context.$cookies.get('area_id') || 0
-      return { area: { id: areaId }, ...req }
+      return { ...req, area: { id: areaId } }
     }
     return { ...req }
   }

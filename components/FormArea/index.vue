@@ -6,7 +6,7 @@
     class="form-product-component"
   >
     <a-form-model-item ref="images" prop="images" class="wrap-dragger-upload">
-      <UploadImage ref="uploadImagerRef" @uploaded="uploaded" :multiple="false" />
+      <UploadImage ref="uploadImagerRef" :multiple="false" @uploaded="uploaded" />
     </a-form-model-item>
     <a-form-model-item ref="name" label="Nama" prop="name">
       <a-input
@@ -24,9 +24,9 @@
 
     <a-form-model-item ref="maxQuota" label="Daya Tampung" prop="maxQuota">
       <a-input-number
+        v-model="form.maxQuota"
         type="number"
         style="width: 100%;"
-        v-model="form.maxQuota"
         placeholder="Tulis Maksimum Daya Tampung"
       />
     </a-form-model-item>
@@ -68,13 +68,13 @@ export default Vue.extend({
         description: null,
         maxQuota: null,
         location: null,
-        images: null,
+        images: null
       },
       rules: {
         name: [{ required: true, message: 'Field is required', trigger: 'change' }],
         description: [{ required: true, message: 'Field is required', trigger: 'change' }],
         maxQuota: [{ required: true, message: 'Field is required', trigger: 'change' }],
-        location: [{ required: true, message: 'Field is required', trigger: 'change' }],
+        location: [{ required: true, message: 'Field is required', trigger: 'change' }]
         // image: [{ required: true, message: 'Field is required', trigger: 'change' }]
       }
     }

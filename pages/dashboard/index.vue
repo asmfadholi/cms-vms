@@ -54,6 +54,29 @@
       </nuxt-link> -->
     </div>
     <a-divider v-if="$isAdminArea() || $isSuperAdmin()" />
+
+    <div>
+      <h3 v-if="$isAdminArea() || $isSuperAdmin()">
+        <a-space size="small">
+          <a-icon type="dollar" style="font-size: 15px;" />
+          <nuxt-link to="/dashboard/ticket">
+            <span>Manage Tiket</span>
+          </nuxt-link>
+        </a-space>
+      </h3>
+      <!-- <nuxt-link to="/dashboard/transaction/add">
+        <a-button type="primary" icon="plus-circle" size="large">
+          Buat Transaksi
+        </a-button>
+      </nuxt-link>
+
+      <nuxt-link to="/dashboard/transaction">
+        <a-button type="primary" icon="ordered-list" size="large">
+          List Transaksi
+        </a-button>
+      </nuxt-link> -->
+    </div>
+    <a-divider v-if="$isAdminArea() || $isSuperAdmin()" />
   </div>
 </template>
 

@@ -37,6 +37,14 @@
               </div>
             </nuxt-link>
           </a-menu-item>
+          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="ticket">
+            <nuxt-link to="/dashboard/ticket">
+              <div>
+                <a-icon type="dollar" />
+                <span>Manage Tiket</span>
+              </div>
+            </nuxt-link>
+          </a-menu-item>
         </a-menu>
       </a-layout-sider>
       <div v-else>
@@ -79,6 +87,15 @@
                 <div>
                   <a-icon type="dollar" />
                   <span>Manage Wahana</span>
+                </div>
+              </nuxt-link>
+            </a-menu-item>
+
+            <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="ticket">
+              <nuxt-link to="/dashboard/ticket">
+                <div>
+                  <a-icon type="dollar" />
+                  <span>Manage Tiket</span>
                 </div>
               </nuxt-link>
             </a-menu-item>
@@ -144,6 +161,7 @@ export default Vue.extend({
       if (path.includes('area') && params.slug) { return ['areaDetail'] }
       if (path.includes('area/users')) { return ['manageStaffArea'] }
       if (path.includes('wahana')) { return ['wahana'] }
+      if (path.includes('ticket')) { return ['ticket'] }
       return ['home']
     }
   },
