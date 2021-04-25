@@ -45,6 +45,23 @@
               </div>
             </nuxt-link>
           </a-menu-item>
+          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="visitor-area">
+            <nuxt-link to="/dashboard/visitor-area">
+              <div>
+                <a-icon type="dollar" />
+                <span>Visitor Area</span>
+              </div>
+            </nuxt-link>
+          </a-menu-item>
+
+          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin() || $isAdminWahana()" key="visitor-wahana">
+            <nuxt-link to="/dashboard/visitor-wahana">
+              <div>
+                <a-icon type="dollar" />
+                <span>Visitor Wahana</span>
+              </div>
+            </nuxt-link>
+          </a-menu-item>
         </a-menu>
       </a-layout-sider>
       <div v-else>
@@ -96,6 +113,24 @@
                 <div>
                   <a-icon type="dollar" />
                   <span>Manage Tiket</span>
+                </div>
+              </nuxt-link>
+            </a-menu-item>
+
+            <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="visitor-area">
+              <nuxt-link to="/dashboard/visitor-area">
+                <div>
+                  <a-icon type="dollar" />
+                  <span>Visitor Area</span>
+                </div>
+              </nuxt-link>
+            </a-menu-item>
+
+            <a-menu-item v-if="$isAdminArea() || $isSuperAdmin() || $isAdminWahana()" key="visitor-wahana">
+              <nuxt-link to="/dashboard/visitor-wahana">
+                <div>
+                  <a-icon type="dollar" />
+                  <span>Visitor Wahana</span>
                 </div>
               </nuxt-link>
             </a-menu-item>
@@ -160,8 +195,10 @@ export default Vue.extend({
       const { path = '', params = {} } = this.$route
       if (path.includes('area') && params.slug) { return ['areaDetail'] }
       if (path.includes('area/users')) { return ['manageStaffArea'] }
-      if (path.includes('wahana')) { return ['wahana'] }
+      if (path.includes('dashboard/wahana')) { return ['wahana'] }
       if (path.includes('ticket')) { return ['ticket'] }
+      if (path.includes('visitor-area')) { return ['visitor-area'] }
+      if (path.includes('visitor-wahana')) { return ['visitor-wahana'] }
       return ['home']
     }
   },
