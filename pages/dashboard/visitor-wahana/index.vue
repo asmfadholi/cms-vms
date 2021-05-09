@@ -55,10 +55,10 @@ export default Vue.extend({
   middleware: 'auth',
   scrollToTop: true,
   transition: 'slide-bottom',
-  async asyncData ({ $strapi, $getAuthWithArea, redirect, $cookies }) {
+  async asyncData ({ $strapi, $getWahanaWithAuth, redirect, $cookies }) {
     try {
-      const getVisitors = $strapi['$wahana-visitors'].find($getAuthWithArea({ _start: 0, _limit: 10 }))
-      const countVisitors = $strapi['$wahana-visitors'].count($getAuthWithArea())
+      const getVisitors = $strapi['$wahana-visitors'].find($getWahanaWithAuth({ _start: 0, _limit: 10 }))
+      const countVisitors = $strapi['$wahana-visitors'].count($getWahanaWithAuth())
       const wrapRequest = [getVisitors, countVisitors]
       const res = await Promise.all(wrapRequest)
       const visitors = res[0]

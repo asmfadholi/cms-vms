@@ -4,5 +4,11 @@ export const FORM_TYPE = {
   SELECT: 'select',
   RADIO: 'radio',
   NUMBER: 'number',
-  LONG_TEXT: 'longText'
+  LONG_TEXT: 'longText',
+  EMAIL: 'email',
+  SINGLE_UPLOAD: 'singleUpload',
+  MULTI_UPLOAD: 'multiUpload',
+  SINGLE_SELECT: 'singleSelect',
+  MULTI_SELECT: 'multiSelect',
+  DATE: 'date'
 }

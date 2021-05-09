@@ -1,5 +1,5 @@
 <template>
-  <LazyCrudModule
+  <LazyPercobaan
     :custom-columns="customColumns"
     :feature="feature"
     :ref-table="refTable"
