@@ -214,25 +214,84 @@ export default Vue.extend({
   created () {
     this.generateMainForm()
     this.generateAdditionalForm()
+
+    if (!this.isCreate) {
+      this.setDataEdit(this.dataEdit)
+    }
   },
   methods: {
+
+    filterByField (fieldType) {
+      const fields = []
+      this.mainForm.forEach((main) => {
+        const { form } = main
+        form.forEach((field) => {
+          const isMultiUploadType = field.type === fieldType
+          if (isMultiUploadType) {
+            fields.push(field.prop)
+          }
+        })
+      })
+      return fields
+    },
+
+    async deleteImages () {
+      if (!this.isCreate) {
+        const shouldDelete = []
+        const fieldMultiUpload = this.filterByField(FORM_TYPE.MULTI_UPLOAD)
+        fieldMultiUpload.forEach((prop) => {
+          this.dataEdit[prop].forEach((edit) => {
+            let isDelete = true
+            const newForm = { ...this.form }
+            newForm[prop].forEach((img) => {
+              if (img.id) {
+                const sameId = img.id === edit.id
+                if (sameId) {
+                  isDelete = false
+                }
+              }
+            })
+            if (isDelete) {
+              shouldDelete.push(edit)
+            }
+          })
+        })
+        const reqAll = shouldDelete.map(del => this.$strapi.delete('upload/files', del.id))
+        await Promise.all(reqAll)
+      }
+    },
+
     generateData () {
       const formData = new FormData()
       const newForm = { ...this.form }
-      const { images = [] } = newForm
-      if (images.length > 0) {
-        images.forEach(({ originFileObj, name }) => {
-          if (originFileObj) {
-            formData.append('files.images', originFileObj, name)
-          }
-        })
-      }
-      delete newForm.images
+
+      const fieldMultiUpload = this.filterByMultiUploadType()
+      fieldMultiUpload.forEach((field) => {
+        const images = newForm[field] || []
+        if (images.length > 0) {
+          images.forEach(({ originFileObj, name }) => {
+            if (originFileObj) {
+              formData.append(`files.${field}`, originFileObj, name)
+            }
+          })
+        }
+        delete newForm[field]
+      })
+
       formData.append('data', JSON.stringify({ ...newForm, ...this.filterPost }))
       return formData
     },
     setDataEdit (newVal) {
-      this.form = { ...newVal, package: newVal.package?.id || 0 }
+      const newForm = { ...newVal }
+      const fieldSingleSelect = this.filterByField(FORM_TYPE.SINGLE_SELECT)
+      const fieldMultiSelect = this.filterByField(FORM_TYPE.MULTI_SELECT)
+      const mergeFields = fieldSingleSelect.concat(fieldMultiSelect)
+
+      mergeFields.forEach((field) => {
+        newForm[field] = newForm[field].id || 0
+      })
+
+      this.form = newForm
     },
     resetForm () {
       this.form = { ...this.defaultForm }
@@ -257,7 +316,8 @@ export default Vue.extend({
       this.loadingForm = true
       try {
         const req = this.generateData()
-        await this.$strapi[`$${this.service}`].update(this.dataEdit?.id, req)
+        const reqAll = [this.$strapi[`$${this.service}`].update(this.dataEdit?.id, req), this.deleteImages()]
+        await Promise.all(reqAll)
         this.$message.success(`Berhasil edit ${this.feature}`)
         this.resetForm()
         this.$emit('onEdited')
