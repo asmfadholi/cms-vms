@@ -17,7 +17,7 @@ export const form = [
         label: 'Pilih Tanggal',
         type: 'date',
         prop: 'ticketDate',
-        disabledDate: current => current && current < moment().startOf('day'),
+        disabledDate: current => current && current < moment().endOf('day'),
         placeholder: 'Tulis Tanggal'
       }
     ]

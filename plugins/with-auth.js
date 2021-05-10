@@ -1,3 +1,5 @@
+import ROLES from '~/schemas/roles'
+
 export default (context, inject) => {
   const getAuthWithArea = (req = {}) => {
     const currentRole = context.$cookies.get('role_id')
@@ -50,6 +52,11 @@ export default (context, inject) => {
     return roleId === 'authenticated'
   }
 
+  const accessElement = (service) => {
+    const roleId = context.$cookies.get('role_id') || 0
+    return ROLES[roleId][service]
+  }
+
   inject('getAuthWithArea', getAuthWithArea)
   inject('postAuthWithArea', postAuthWithArea)
 
@@ -60,6 +67,8 @@ export default (context, inject) => {
   inject('isAdminWahana', isAdminWahana)
   inject('isSuperAdmin', isSuperAdmin)
 
+  inject('accessElement', accessElement)
+
   context.$getAuthWithArea = getAuthWithArea
   context.$postAuthWithArea = postAuthWithArea
 
@@ -69,4 +78,6 @@ export default (context, inject) => {
   context.$isAdminArea = isAdminArea
   context.$isAdminWahana = isAdminWahana
   context.$isSuperAdmin = isSuperAdmin
+
+  context.$accessElement = accessElement
 }

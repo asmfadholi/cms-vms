@@ -13,31 +13,40 @@
             </nuxt-link>
           </a-menu-item>
 
-          <a-menu-item v-if="$isAdminArea()" key="areaDetail">
+          <!-- <a-menu-item v-if="$isAdminArea()" key="areaDetail">
             <nuxt-link :to="`/dashboard/area/${$cookies.get('area_slug')}`">
               <div>
                 <a-icon type="profile" />
                 <span>About Area</span>
               </div>
             </nuxt-link>
-          </a-menu-item>
-          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="manageStaffArea">
+          </a-menu-item> -->
+          <!-- <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="manageStaffArea">
             <nuxt-link to="/dashboard/area/users">
               <div>
                 <a-icon type="profile" />
                 <span>Manage Staff</span>
               </div>
             </nuxt-link>
-          </a-menu-item>
-          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="wahana">
+          </a-menu-item> -->
+          <!-- <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="wahana">
             <nuxt-link to="/dashboard/wahana">
               <div>
                 <a-icon type="dollar" />
                 <span>Manage Wahana</span>
               </div>
             </nuxt-link>
+          </a-menu-item> -->
+          <a-menu-item v-if="$accessElement('areas').list" key="area">
+            <nuxt-link to="/dashboard/area">
+              <div>
+                <a-icon type="dollar" />
+                <span>About Area</span>
+              </div>
+            </nuxt-link>
           </a-menu-item>
-          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="ticket">
+
+          <a-menu-item v-if="$accessElement('tickets').list" key="ticket">
             <nuxt-link to="/dashboard/ticket">
               <div>
                 <a-icon type="dollar" />
@@ -45,7 +54,7 @@
               </div>
             </nuxt-link>
           </a-menu-item>
-          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="visitor-area">
+          <a-menu-item v-if="$accessElement('visitors').list" key="visitor-area">
             <nuxt-link to="/dashboard/visitor-area">
               <div>
                 <a-icon type="dollar" />
@@ -54,7 +63,7 @@
             </nuxt-link>
           </a-menu-item>
 
-          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin() || $isAdminWahana()" key="visitor-wahana">
+          <a-menu-item v-if="$accessElement('wahana-visitors').list" key="visitor-wahana">
             <nuxt-link to="/dashboard/visitor-wahana">
               <div>
                 <a-icon type="dollar" />
@@ -192,12 +201,12 @@ export default Vue.extend({
       return process.server ? false : this.$isMobile()
     },
     currentNavigation () {
-      const { path = '', params = {} } = this.$route
-      if (path.includes('area') && params.slug) { return ['areaDetail'] }
+      const { path = '' } = this.$route
+      if (path.includes('visitor-area')) { return ['visitor-area'] }
+      if (path.includes('area')) { return ['area'] }
       if (path.includes('area/users')) { return ['manageStaffArea'] }
       if (path.includes('dashboard/wahana')) { return ['wahana'] }
       if (path.includes('ticket')) { return ['ticket'] }
-      if (path.includes('visitor-area')) { return ['visitor-area'] }
       if (path.includes('visitor-wahana')) { return ['visitor-wahana'] }
       return ['home']
     }

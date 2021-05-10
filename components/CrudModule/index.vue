@@ -10,7 +10,7 @@
     </div>
     <a-divider />
     <a-row style="margin: 0 0 20px;">
-      <a-col :span="12">
+      <a-col v-if="$accessElement(service).search" :span="12">
         <a-input
           v-model="search"
           v-debounce="doSearch"
@@ -18,7 +18,7 @@
         />
       </a-col>
       <a-col :span="12">
-        <div style="display: flex; justify-content: flex-end;">
+        <div v-if="$accessElement(service).create" style="display: flex; justify-content: flex-end;">
           <a-button type="primary" icon="plus-circle" size="default" @click="onCreate">
             Tambah {{ feature }}
           </a-button>

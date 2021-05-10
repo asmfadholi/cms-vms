@@ -14,10 +14,10 @@
       style="display: flex; justify-content: center; cursor: pointer; font-size: 20px;"
     >
       <a-space size="middle">
-        <a @click="onEdit(row)">
+        <a v-if="$accessElement(service).edit" @click="onEdit(row)">
           <a-icon type="form" style="color: #1890ff; font-size: 15px;" />
         </a>
-        <a-popconfirm placement="topLeft" ok-text="Yes" cancel-text="No" @confirm="confirm(row)">
+        <a-popconfirm v-if="$accessElement(service).delete" placement="topLeft" ok-text="Yes" cancel-text="No" @confirm="confirm(row)">
           <template slot="title">
             <p>Apa kamu yakin ingin delete {{ feature }} ini?</p>
           </template>
@@ -66,12 +66,14 @@ export default {
     columns () {
       return [
         ...this.customColumns,
-        {
-          title: 'Action',
-          dataIndex: 'action',
-          scopedSlots: { customRender: 'action' },
-          key: 'action'
-        }
+        this.$accessElement(this.service).delete || this.$accessElement(this.service).edit
+          ? {
+              title: 'Action',
+              dataIndex: 'action',
+              scopedSlots: { customRender: 'action' },
+              key: 'action'
+            }
+          : {}
       ]
     }
   },

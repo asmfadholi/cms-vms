@@ -34,9 +34,15 @@ export default Vue.extend({
   },
   computed: {
     filterGet () {
+      const role = this.$cookies.get('role_id')
+      if (role === 'super_admin') { return {} }
+
       return { id: this.$cookies.get('area_id') }
     },
     filterPost () {
+      const role = this.$cookies.get('role_id')
+      if (role === 'super_admin') { return {} }
+
       return this.$postAuthWithArea()
     }
   }

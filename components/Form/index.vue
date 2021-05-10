@@ -265,7 +265,7 @@ export default Vue.extend({
       const formData = new FormData()
       const newForm = { ...this.form }
 
-      const fieldMultiUpload = this.filterByMultiUploadType()
+      const fieldMultiUpload = this.filterByField(FORM_TYPE.MULTI_UPLOAD)
       fieldMultiUpload.forEach((field) => {
         const images = newForm[field] || []
         if (images.length > 0) {

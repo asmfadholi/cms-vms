@@ -49,9 +49,9 @@ export const form = [
 
 export const customColumns = [
   {
-    dataIndex: 'id',
-    key: 'id',
-    title: 'ID',
+    dataIndex: 'bookingCode',
+    key: 'bookingCode',
+    title: 'Kode Booking',
     fixed: 'left'
   },
   {
@@ -62,13 +62,13 @@ export const customColumns = [
     fixed: 'left'
   },
   {
-    title: 'Location',
-    dataIndex: 'location',
-    key: 'location'
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email'
   },
   {
-    title: 'Max Quota',
-    dataIndex: 'maxQuota',
-    key: 'maxQuota'
+    title: 'Tanggal',
+    dataIndex: 'createdAtByBe',
+    key: 'createdAtByBe'
   }
 ]
