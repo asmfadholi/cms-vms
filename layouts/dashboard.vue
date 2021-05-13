@@ -29,14 +29,14 @@
               </div>
             </nuxt-link>
           </a-menu-item> -->
-          <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="wahana">
+          <!-- <a-menu-item v-if="$isAdminArea() || $isSuperAdmin()" key="wahana">
             <nuxt-link to="/dashboard/wahana">
               <div>
                 <a-icon type="dollar" />
                 <span>Manage Wahana</span>
               </div>
             </nuxt-link>
-          </a-menu-item>
+          </a-menu-item> -->
           <a-menu-item v-if="$accessElement('areas').list" key="area">
             <nuxt-link to="/dashboard/area">
               <div>
