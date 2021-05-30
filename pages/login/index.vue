@@ -68,34 +68,39 @@ export default Vue.extend({
         }
       })
     },
+
+    redirectTo (role) {
+      const isAdminArea = role === 'admin_area'
+      const isAdminWahana = role === 'admin_wahana'
+
+      if (isAdminArea) {
+        this.$router.replace('/dashboard/admin/area')
+        this.$message.success('Login Berhasil, Selamat Datang')
+      } else if (isAdminWahana) {
+        this.$router.replace('/dashboard/admin/wahana')
+        this.$message.success('Login Berhasil, Selamat Datang')
+      } else {
+        this.$message.error('Login Gagal, Silahkan Coba Lagi')
+      }
+    },
     async doLogin (val) {
       try {
         this.loading = true
-        if (this.$nuxt.isOffline) {
-          if (this.form.identifier === 'pazarin@mailinator.com' && this.form.password === 'tokobuidoh') {
-            this.$strapi.$cookies.set('user_id', 1)
-            this.$strapi.$cookies.set('shop_id', 1)
-          } else {
-            this.$message.error('Login Gagal, Silahkan Coba Lagi')
-            this.loading = false
-            return
-          }
-        } else {
-          const { user = {} } = await this.$strapi.login(val)
-          const { role = {}, area = {}, wahana = {} } = user
 
-          // id
-          this.$strapi.$cookies.set('user_id', user?.id || 0)
-          this.$strapi.$cookies.set('role_id', role?.type || 0)
-          this.$strapi.$cookies.set('area_id', area?.id || 0)
-          this.$strapi.$cookies.set('wahana_id', wahana?.id || 0)
+        const { user = {} } = await this.$strapi.login(val)
+        const { role = {}, area = {}, wahana = {} } = user
 
-          // slug
-          this.$strapi.$cookies.set('area_slug', area?.slug || 0)
-          this.$strapi.$cookies.set('wahana_slug', wahana?.slug || 0)
-        }
-        this.$message.success('Login Berhasil, Selamat Datang')
-        this.$router.replace('/dashboard')
+        // id
+        this.$strapi.$cookies.set('user_id', user?.id || 0)
+        this.$strapi.$cookies.set('role_id', role?.type || 0)
+        this.$strapi.$cookies.set('area_id', area?.id || 0)
+        this.$strapi.$cookies.set('wahana_id', wahana?.id || 0)
+
+        // slug
+        this.$strapi.$cookies.set('area_slug', area?.slug || 0)
+        this.$strapi.$cookies.set('wahana_slug', wahana?.slug || 0)
+
+        this.redirectTo(role?.type)
       } catch (_) {
         this.$message.error('Login Gagal, Silahkan Coba Lagi')
       } finally {
