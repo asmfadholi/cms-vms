@@ -162,6 +162,10 @@ import { mainForm } from '~/schemas/form'
 
 export default Vue.extend({
   props: {
+    isFormData: {
+      type: Boolean,
+      default: true
+    },
     dataEdit: {
       type: Object,
       default: () => null
@@ -277,9 +281,11 @@ export default Vue.extend({
         }
         delete newForm[field]
       })
-
-      formData.append('data', JSON.stringify({ ...newForm, ...this.filterPost }))
-      return formData
+      if (this.isFormData) {
+        formData.append('data', JSON.stringify({ ...newForm, ...this.filterPost }))
+        return formData
+      }
+      return { ...newForm, ...this.filterPost }
     },
     setDataEdit (newVal) {
       const newForm = { ...newVal }
@@ -288,13 +294,14 @@ export default Vue.extend({
       const mergeFields = fieldSingleSelect.concat(fieldMultiSelect)
 
       mergeFields.forEach((field) => {
-        newForm[field] = newForm[field].id || 0
+        newForm[field] = newForm[field]?.id || 0
       })
 
       this.form = newForm
     },
     resetForm () {
       this.form = { ...this.defaultForm }
+      this.generateAdditionalForm()
     },
 
     async create () {

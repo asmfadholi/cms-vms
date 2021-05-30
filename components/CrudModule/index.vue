@@ -52,6 +52,7 @@
         :feature="feature"
         :main-form="form"
         :data-edit="dataEdit"
+        :is-form-data="isFormData"
         :other-fields="otherFields"
         @onEdited="refreshTable"
         @onCreated="refreshTable"
@@ -67,6 +68,10 @@ export default Vue.extend({
   scrollToTop: true,
   transition: 'slide-bottom',
   props: {
+    isFormData: {
+      type: Boolean,
+      default: true
+    },
     form: {
       type: Array,
       default: () => []
@@ -99,6 +104,10 @@ export default Vue.extend({
       type: Number,
       default: 10
     },
+    searchBy: {
+      type: String,
+      default: 'name'
+    },
     service: {
       type: String,
       default: ''
@@ -127,9 +136,9 @@ export default Vue.extend({
   },
   methods: {
     async getList (params = {}) {
-      const { name_contains: nameContains = '' } = params
+      const { [`${this.searchBy}_contains`]: nameContains = '' } = params
       const getList = this.$strapi[`$${this.service}`].find({ ...this.filterGet, ...params, _limit: this.limit })
-      const countList = this.$strapi[`$${this.service}`].count({ ...this.filterGet, name_contains: nameContains })
+      const countList = this.$strapi[`$${this.service}`].count({ ...this.filterGet, [`${this.searchBy}_contains`]: nameContains })
       const wrapRequest = [getList, countList]
       const res = await Promise.all(wrapRequest)
       const list = res[0]
@@ -175,7 +184,7 @@ export default Vue.extend({
       try {
         this.$refs[this.refTable].setLoading(true)
         this.start = start
-        const { list = [], total = 0 } = await this.getList({ name_contains: this.search, _start: this.start })
+        const { list = [], total = 0 } = await this.getList({ [`${this.searchBy}_contains`]: this.search, _start: this.start })
         this.list = list
         this.total = total
       } catch (err) {

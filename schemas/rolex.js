@@ -78,6 +78,14 @@ export default {
       search: false,
       filter: ''
     },
+    users: {
+      list: true,
+      create: true,
+      delete: true,
+      edit: true,
+      search: true,
+      filter: ''
+    },
     forms: {
       list: true,
       create: false,
@@ -99,6 +107,14 @@ export default {
       create: true,
       delete: true,
       edit: false,
+      search: true,
+      filter: ''
+    },
+    wahanas: {
+      list: true,
+      create: true,
+      delete: true,
+      edit: true,
       search: true,
       filter: ''
     },

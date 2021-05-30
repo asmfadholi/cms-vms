@@ -68,6 +68,20 @@ export default Vue.extend({
         }
       })
     },
+
+    redirectTo (role) {
+      const isAdminArea = role === 'admin_area'
+      const isAdminWahana = role === 'admin_wahana'
+      const isSuperAdmin = role === 'super_admin'
+
+      if (isAdminArea) {
+        this.$router.replace('/dashboard/admin/area')
+      } else if (isAdminWahana) {
+        this.$router.replace('/dashboard/admin/wahana')
+      } else if (isSuperAdmin) {
+        this.$router.replace('/dashboard/superadmin')
+      }
+    },
     async doLogin (val) {
       try {
         this.loading = true
@@ -93,9 +107,10 @@ export default Vue.extend({
           // slug
           this.$strapi.$cookies.set('area_slug', area?.slug || 0)
           this.$strapi.$cookies.set('wahana_slug', wahana?.slug || 0)
+
+          this.redirectTo(role?.type)
         }
         this.$message.success('Login Berhasil, Selamat Datang')
-        this.$router.replace('/dashboard')
       } catch (_) {
         this.$message.error('Login Gagal, Silahkan Coba Lagi')
       } finally {

@@ -9,9 +9,15 @@
     @change="onChange"
   >
     <span
+      slot="created_at"
+      slot-scope="createdDate"
+    >
+      {{ createdDate | moment('DD MMMM YYYY, HH:mm:ss') }}
+    </span>
+    <span
       slot="action"
       slot-scope="action, row"
-      style="display: flex; justify-content: center; cursor: pointer; font-size: 20px;"
+      style="display: flex; justify-content: left; cursor: pointer; font-size: 20px;"
     >
       <a-space size="middle">
         <a v-if="$accessElement(service).edit" @click="onEdit(row)">
@@ -66,6 +72,12 @@ export default {
     columns () {
       return [
         ...this.customColumns,
+        {
+          title: 'Created At',
+          dataIndex: 'created_at',
+          scopedSlots: { customRender: 'created_at' },
+          key: 'created_at'
+        },
         this.$accessElement(this.service).delete || this.$accessElement(this.service).edit
           ? {
               title: 'Action',
