@@ -129,7 +129,7 @@ export default {
   },
   [ADMIN_WAHANA]: {
     areas: {
-      list: true,
+      list: false,
       create: false,
       edit: false,
       delete: false,
@@ -145,10 +145,18 @@ export default {
       filter: ''
     },
     tickets: {
-      list: true,
+      list: false,
       create: false,
       delete: false,
       edit: false,
+      search: false,
+      filter: ''
+    },
+    wahanas: {
+      list: true,
+      create: false,
+      delete: false,
+      edit: true,
       search: true,
       filter: ''
     },
