@@ -58,6 +58,7 @@ export default {
   ],
 
   strapi: {
+    url: '/api',
     entities: ['areas', 'wahanas', 'users', 'tickets', 'forms', 'packages', 'visitors', 'wahana-visitors', 'upload'],
     expires: '31d'
   },
