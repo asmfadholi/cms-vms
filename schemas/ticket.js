@@ -44,7 +44,6 @@ export const form = [
         isRequired: true,
         label: 'No. Handphone',
         prop: 'phoneNumber',
-        type: 'number',
         placeholder: 'Tulis No. Handphonemu'
       },
       {
