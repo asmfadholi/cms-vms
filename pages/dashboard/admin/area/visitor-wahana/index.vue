@@ -125,7 +125,7 @@ export default Vue.extend({
   },
   methods: {
     async getWahanas () {
-      const res = await this.$strapi.$wahanas.find(this.filterGet)
+      const res = await this.$strapi.$wahanas.find({ 'area.id': this.areaId })
       form[0].form[1].options = res
     }
   }
