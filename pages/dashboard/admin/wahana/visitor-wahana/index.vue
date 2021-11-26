@@ -71,7 +71,7 @@ const form = [
         isRequired: true,
         label: 'phone Number',
         prop: 'phoneNumber',
-        type: 'number',
+        type: 'shortText',
         placeholder: 'Ex: 086333333333'
       },
       {
