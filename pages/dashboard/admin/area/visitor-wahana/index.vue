@@ -113,7 +113,7 @@ export default Vue.extend({
       return this.$cookies.get('area_id')
     },
     filterGet () {
-      return { 'area.id': this.areaId }
+      return { 'wahana.area.id': this.areaId }
     },
     filterPost () {
       return { area: { id: this.areaId }, isCheckin: true }
