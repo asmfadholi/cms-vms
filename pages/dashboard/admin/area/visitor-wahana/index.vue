@@ -17,9 +17,9 @@ import Vue from 'vue'
 
 const customColumns = [
   {
-    dataIndex: 'bookingCode',
-    key: 'bookingCode',
-    title: 'Booking Code',
+    dataIndex: 'id',
+    key: 'id',
+    title: 'ID',
     fixed: 'left'
   },
   {
@@ -27,12 +27,6 @@ const customColumns = [
     dataIndex: 'name',
     key: 'name',
     width: '130px',
-    fixed: 'left'
-  },
-  {
-    title: 'Phone Number',
-    dataIndex: 'phoneNumber',
-    key: 'phoneNumber'
   },
   {
     title: 'Gender',
@@ -45,13 +39,6 @@ const form = [
   {
     title: 'About Visitor',
     form: [
-      {
-        isRequired: true,
-        label: 'Booking Code',
-        prop: 'bookingCode',
-        type: 'shortText',
-        placeholder: 'Masukkan Booking Code'
-      },
       {
         isRequired: true,
         label: 'Pilih Wahana',
@@ -73,13 +60,6 @@ const form = [
         prop: 'email',
         type: 'email',
         placeholder: 'Ex: Email saya'
-      },
-      {
-        isRequired: true,
-        label: 'phone Number',
-        prop: 'phoneNumber',
-        type: 'shortText',
-        placeholder: 'Ex: 086333333333'
       },
       {
         isRequired: true,
