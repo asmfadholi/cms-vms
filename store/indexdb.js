@@ -30,17 +30,17 @@ export const actions = {
         const request = window.indexedDB.open('market', 2)
 
         request.onerror = (e) => {
-          console.log('Error opening db', e)
+          // console.log('Error opening db', e)
           reject(e)
         }
 
         request.onsuccess = (e) => {
-          console.log('success opening db', e.target.result)
-          resolve(e.target.result)
+          // console.log('success opening db', e.target.result)
+          // resolve(e.target.result)
         }
 
         request.onupgradeneeded = (e) => {
-          console.log('onupgradeneeded')
+          // console.log('onupgradeneeded')
           const db = e.target.result
           if (!db.objectStoreNames.products) {
             db.createObjectStore('products', { autoIncrement: true, keyPath: 'id' })
@@ -53,7 +53,7 @@ export const actions = {
       })
       commit('setDB', db)
     } catch (err) {
-      console.log('Error opening db', err)
+      // console.log('Error opening db', err)
     }
   },
 

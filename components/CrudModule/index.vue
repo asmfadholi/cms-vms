@@ -96,6 +96,10 @@ export default Vue.extend({
       type: Object,
       default: () => {}
     },
+    filterGetForm: {
+      type: Object,
+      default: () => null
+    },
     needFormService: {
       type: Boolean,
       default: false
@@ -147,7 +151,7 @@ export default Vue.extend({
     },
 
     async getFormArea () {
-      const res = await this.$strapi.$forms.find(this.filterGet)
+      const res = await this.$strapi.$forms.find(this.filterGetForm || this.filterGet)
       return res[0] || {}
     },
 

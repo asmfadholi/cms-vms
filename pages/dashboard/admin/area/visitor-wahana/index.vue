@@ -6,6 +6,7 @@
     :need-form-service="needFormService"
     :limit="limit"
     :service="service"
+    :filter-get-form="filterGetForm"
     :filter-get="filterGet"
     :filter-post="filterPost"
     :form="form"
@@ -25,8 +26,7 @@ const customColumns = [
   {
     title: 'Name',
     dataIndex: 'name',
-    key: 'name',
-    width: '130px',
+    key: 'name'
   },
   {
     title: 'Gender',
@@ -93,6 +93,9 @@ export default Vue.extend({
     areaId () {
       return this.$cookies.get('area_id')
     },
+    filterGetForm () {
+      return { 'area.id': this.areaId }
+    },
     filterGet () {
       return { 'wahana.area.id': this.areaId }
     },
@@ -106,7 +109,7 @@ export default Vue.extend({
   methods: {
     async getWahanas () {
       const res = await this.$strapi.$wahanas.find({ 'area.id': this.areaId })
-      form[0].form[1].options = res
+      form[0].form[0].options = res
     }
   }
 })
